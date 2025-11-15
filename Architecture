@@ -1,0 +1,20 @@
+Block Diagram:
+        
+        +------------------+
+        |                  |
+   A -->|                  |
+   B -->|     4-bit ALU    |--> Result [3:0]
+ SEL -->|                  |--> Zero Flag
+        |                  |--> Carry Flag
+        |                  |--> Overflow Flag
+        +------------------+
+
+4bit-ALU/
+├── rtl/
+│   └── alu_4bit.v          # Main ALU module
+├── tb/
+│   └── alu_4bit_tb.v       # Testbench
+├── docs/
+│   ├── waveforms/          # Simulation waveforms
+│   └── block_diagram.png   # Architecture diagram
+└── README.md
