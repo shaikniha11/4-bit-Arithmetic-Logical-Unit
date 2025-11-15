@@ -1,0 +1,38 @@
+//Design
+module alu_4bit(input [3: 0]A, input [3: 0]B, input [2: 0]alu_sel, 
+                output reg [3: 0]result, output reg carry, output reg zeroflag);
+//operation codes
+parameter ADD = 3'b000;
+parameter SUB = 3'b001;
+parameter AND1 = 3'b010;
+parameter OR1 = 3'b011;
+parameter XOR = 3'b100;
+parameter NOT1 = 3'b101;
+parameter SHL = 3'b110; //shift left
+parameter SHR = 3'b111; //shift right
+
+always @(*)begin
+    carry = 0;
+    case(alu_sel)
+        ADD: 
+            {carry, result} = A+B;
+        SUB: 
+            {carry, result} = A-B;
+        AND1: 
+            result = A&B;
+        OR1: 
+            result = A|B;
+        XOR: 
+            result = A^B;
+        NOT1: 
+            result = ~A;
+        SHL: 
+            result = A<<1;
+        SHR: 
+            result = A>>1;
+        default: 
+            result = 4'b0000;
+    endcase
+    zeroflag = (result == 4'b0000) ? 1'b1 : 1'b0;
+end
+endmodule
