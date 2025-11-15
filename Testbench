@@ -1,0 +1,44 @@
+//Testbench
+module tb_alu_4bit;
+reg [3: 0] A, B;
+reg [2: 0] alu_sel;
+wire [3: 0] result;
+wire carry, zeroflag;
+
+alu_4bit uut(.A(A), .B(B), .alu_sel(alu_sel), 
+             .result(result), .carry(carry), .zeroflag(zeroflag));
+
+initial begin
+    $monitor("Time=%0t | A=%b B=%b | Op=%b | result=%b | carry=%b zeroflag=%b", 
+             $time, A, B, alu_sel, result, carry, zeroflag);
+    
+    //Test ADD
+    A=4'b0101; B=4'b0011; alu_sel=3'b000; #10;
+    
+    //Test SUB
+    A=4'b0111; B=4'b0010; alu_sel=3'b001; #10;
+    
+    // Test AND1
+    A = 4'b1100; B = 4'b1010; alu_sel = 3'b010; #10;
+    
+    // Test OR1
+    A = 4'b1100; B = 4'b0011; alu_sel = 3'b011; #10;
+    
+    // Test XOR
+    A = 4'b1010; B = 4'b0101; alu_sel = 3'b100; #10;
+    
+    // Test NOT1
+    A = 4'b1010; alu_sel = 3'b101; #10;
+    
+    // Test Shift Left
+    A = 4'b0011; alu_sel = 3'b110; #10;
+    
+    // Test Shift Right
+    A = 4'b1100; alu_sel = 3'b111; #10;
+    
+    // Test Zero flag
+    A = 4'b0101; B = 4'b1011; alu_sel = 3'b001; #10;
+    
+    $finish;
+end
+endmodule
